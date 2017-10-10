@@ -4,7 +4,7 @@
 
 var sql = require('mysql');
 var inquirer = require('inquirer');
-
+var quantArray = ['skip']
 var connection = sql.createConnection({
 host: 'localhost',
 user: 'root',
@@ -27,9 +27,9 @@ connection.query('SELECT * FROM `products`',
 			for (var i = 0; i < results.length; i++) {
 				console.log("ID: " + results[i].item_id, "Product: " + results[i].product_name,
 					"Price: $" + results[i].price);
+				quantArray.push(results[i].stock_quantity)
 			};
-
-		inquireIdQuantity();
+			inquireIdQuantity();
 	}
 );
 
@@ -46,10 +46,36 @@ var inquireIdQuantity = function() {
 			type: 'input',
 			name: 'whatQuantity',
 			message: 'How many units would you like to buy?'
+		},
+		{
+			type: 'confirm',
+			name: 'buy',
+			message: 'Proceed with purchase?'
 		}])
 		.then(function(results, err) {
-			console.log(results.whatId);
-			console.log(results.whatQuantity);
-			return results.whatId;
+			var id = results.whatId;
+			var promptQuantity = results.whatQuantity;
+			if (results.buy) {
+				quantityCompare(id, promptQuantity);
+			} else {
+				inquireIdQuantity();
+			}
+			
 		})
+}
+
+// FUNCTION
+// compares sql quantity to prompt quantity
+var quantityCompare = function(id, promptQuantity) {
+	console.log(id);
+	console.log(promptQuantity);
+	console.log(quantArray);
+
+	console.log(quantArray[id]);
+
+	if (quantArray[id] < promptQuantity) {
+		console.log('less')
+	} else {
+		console.log('more')
+	}
 }
