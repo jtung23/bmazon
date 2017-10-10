@@ -1,0 +1,23 @@
+{
+  "name": "bmazon",
+  "version": "1.0.0",
+  "description": "bamazon hw",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtung23/bmazon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jtung23/bmazon/issues"
+  },
+  "homepage": "https://github.com/jtung23/bmazon#readme",
+  "dependencies": {
+    "inquirer": "^3.3.0",
+    "mysql": "^2.15.0"
+  }
+}
